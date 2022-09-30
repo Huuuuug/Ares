@@ -1,0 +1,31 @@
+{
+  "bin": {
+    "hg-cli": "./lib/index.js"
+  },
+  "name": "hg-cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsc"
+  },
+  "keywords": [
+    "脚手架"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^18.7.23",
+    "chalk": "4.0.0",
+    "commander": "^9.4.0",
+    "download-git-repo": "^3.0.2",
+    "fs-extra": "^10.1.0",
+    "inquirer": "^8.0.0",
+    "ora": "^5.4.1"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.13",
+    "@types/inquirer": "^8.0.0"
+  }
+}
