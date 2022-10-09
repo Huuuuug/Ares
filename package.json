@@ -1,6 +1,6 @@
 {
   "bin": {
-    "hg-cli": "./lib/index.js"
+    "ares": "./lib/index.js"
   },
   "name": "hg-cli",
   "version": "1.0.0",

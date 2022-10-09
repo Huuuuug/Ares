@@ -3,6 +3,8 @@ import { existsSync, remove } from "fs-extra";
 import chalk from "chalk";
 import ora from "ora";
 import path from "path";
+
+import downloadTemplate from "../utils/downloadTemplate";
 export default async function createApp(name: string, options: any) {
   // 1.获取当前位置（当前输入命令行的位置）
   const cwd = process.cwd();
@@ -46,4 +48,8 @@ export default async function createApp(name: string, options: any) {
   // 5.复制我们准备好的模版
   const spinner = ora("downloading template...");
   spinner.start();
+  await downloadTemplate(projectName, targetPath);
+  setTimeout(() => {
+    spinner.stop();
+  }, 2000);
 }
