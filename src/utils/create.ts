@@ -107,7 +107,7 @@ export function changePackageInfo(projectName: string): void {
 export function installDependency(projectName: string): void {
   const spinner = ora("安装依赖...");
   spinner.start();
-  exec(`cd ${projectName} && npm i`, (err, stdout) => {
+  exec(`cd ${projectName} && npm i pnpm && pnpm i`, (err, stdout) => {
     // if (err) {
     //   spinner.succeed();
     //   console.log(chalk.red(JSON.stringify(err)));
