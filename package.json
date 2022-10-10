@@ -1,8 +1,8 @@
 {
   "bin": {
-    "ares": "./lib/index.js"
+    "holmes": "./lib/index.js"
   },
-  "name": "hg-cli",
+  "name": "holmes-cli",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",

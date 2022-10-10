@@ -1,55 +1,23 @@
-import { prompt } from "inquirer";
-import { existsSync, remove } from "fs-extra";
-import chalk from "chalk";
-import ora from "ora";
-import path from "path";
+import {
+  isFileExist,
+  featureSelect,
+  initProject,
+  changePackageInfo,
+  installDependency,
+} from "../utils/create";
 
-import downloadTemplate from "../utils/downloadTemplate";
-export default async function createApp(name: string, options: any) {
-  // 1.获取当前位置（当前输入命令行的位置）
-  const cwd = process.cwd();
-
-  // 2.需要创建的文件（在当前输入命名的位置进行创建）
-  const targetPath = path.join(cwd, name);
-
-  // 3.通过交互式命令行，选择我们要创建的模版
-  const { projectName } = await prompt({
-    name: "projectName",
-    type: "list",
-    choices: [{ name: "Vue", value: "vue" }],
-    message: "请选择一个模板进行创建",
-  });
-
-  // 4.判断项目是否已存在
-  if (existsSync(targetPath)) {
-    if (options.force) {
-      await remove(targetPath);
-    } else {
-      // 如果存在，则通过交互式命令询问是否覆盖项目
-      const { replace } = await prompt([
-        {
-          name: "replace",
-          type: "list",
-          message: `项目已经存在,是否确认覆盖? ${chalk.gray(
-            "覆盖后原项目将无法修复"
-          )}`,
-          choices: [
-            { name: "确认覆盖", value: true },
-            { name: "再考虑下", value: false },
-          ],
-        },
-      ]);
-      if (!replace) {
-        return;
-      }
-      await remove(targetPath);
-    }
-  }
-  // 5.复制我们准备好的模版
-  const spinner = ora("downloading template...");
-  spinner.start();
-  await downloadTemplate(projectName, targetPath);
-  setTimeout(() => {
-    spinner.stop();
-  }, 2000);
+export default async function createApp(
+  name: string,
+  options: any
+): Promise<void> {
+  // 选择模板
+  const feature = await featureSelect();
+  // 判断文件是否已经存在
+  await isFileExist(name, options);
+  // 初始化项目目录
+  await initProject(name, feature);
+  // 改写项目的 package.json 基本信息(name,description)
+  changePackageInfo(name);
+  // 安装依赖
+  installDependency(name);
 }
